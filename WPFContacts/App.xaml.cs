@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using WPFContacts.Datas;
+using WPFContacts.Windows;
 
 namespace WPFContacts
 {
@@ -13,5 +9,18 @@ namespace WPFContacts
     /// </summary>
     public partial class App : Application
     {
+        public static DbBusiness dbBusiness;
+        public static ContactsList mainWindow;
+
+        public App()
+        {
+            dbBusiness = new DbBusiness();
+        }
+
+        private void AppStartup(object sender, StartupEventArgs e)
+        {
+            mainWindow = new ContactsList();
+            mainWindow.Show();
+        }
     }
 }
