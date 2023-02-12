@@ -10,17 +10,10 @@ namespace WPFContacts
     public partial class App : Application
     {
         public static DbBusiness dbBusiness;
-        public static ContactsList mainWindow;
 
         public App()
         {
             dbBusiness = new DbBusiness();
-        }
-
-        private void AppStartup(object sender, StartupEventArgs e)
-        {
-            mainWindow = new ContactsList();
-            mainWindow.Show();
         }
     }
 }

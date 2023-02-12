@@ -3,15 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:converters="clr-namespace:WPFContacts.Converters"
-        xmlns:local="clr-namespace:WPFContacts.Windows"
+        xmlns:controls="clr-namespace:WPFContacts.Controls"
         mc:Ignorable="d"
         Title="ContactsList" 
         Height="600" 
-        Width="450">
-    <Window.Resources>
-        <converters:PresentationConverter x:Key="presentationConverter"/>
-    </Window.Resources>
+        Width="450"
+        ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -34,16 +31,27 @@
                   ScrollViewer.CanContentScroll="True"
                   Grid.Row="1"
                   x:Name="contactsListView">
+            <ListBox.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </ListBox.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Margin" Value="10"/>
+                    <Style.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Converter={StaticResource presentationConverter}}"
-                                   Style="{StaticResource personTextBlock}"/>
-                        <TextBlock Text="{Binding Phone}"
-                                   Style="{StaticResource phoneTextBlock}"/>
-                        <TextBlock Text="{Binding Mail}"
-                                   Style="{StaticResource mailTextBlock}"/>
-                    </StackPanel>
+                    <controls:ContactControl DisplayedContact="{Binding}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -2,8 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WPFContacts"
-             Startup="AppStartup">
+             StartupUri="Windows\ContactsList.xaml">
     <Application.Resources>
+        <SolidColorBrush x:Key="contactBackgroundColor" Color="LightGray" />
+        <SolidColorBrush x:Key="contactForegroundColor" Color="Black" />
+        <SolidColorBrush x:Key="mailForegroundColor" Color="DodgerBlue" />
         <!--Labels-->
         <Style TargetType="Label">
             <Setter Property="Margin" Value="0,0,0,10"/>
@@ -24,21 +27,25 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="12"/>
         </Style>
+        <!--StackPanel exlicit style for people-->
+        <Style TargetType="StackPanel" x:Key="contactStackPanel">
+            <Setter Property="Background" Value="{StaticResource contactBackgroundColor}"/>
+        </Style>
         <!--Textblock exlicit style for people-->
         <Style TargetType="TextBlock" x:Key="personTextBlock">
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="{StaticResource contactForegroundColor}"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
         <!--Textblock exlicit style for phones-->
         <Style TargetType="TextBlock" x:Key="phoneTextBlock">
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="{StaticResource contactForegroundColor}"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontStyle" Value="Italic"/>
         </Style>
         <!--Textblock exlicit style for mails addresses-->
         <Style TargetType="TextBlock" x:Key="mailTextBlock">
-            <Setter Property="Foreground" Value="DodgerBlue"/>
+            <Setter Property="Foreground" Value="{StaticResource mailForegroundColor}"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontStyle" Value="Italic"/>
         </Style>

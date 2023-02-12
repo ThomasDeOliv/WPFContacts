@@ -35,23 +35,13 @@ namespace WPFContacts.Datas
             using (SQLiteConnection connection = new SQLiteConnection(_dbPath))
             {
                 connection.CreateTable<Contact>();
-                contacts = connection.Table<Contact>().ToList();
+                contacts = connection.Table<Contact>()
+                    .OrderBy(c => c.Name)
+                    .ThenBy(c => c.FirstName)
+                    .ToList();
             }
 
             return contacts;
-        }
-
-        public Contact ReadById(int id)
-        {
-            Contact contact;
-
-            using (SQLiteConnection connection = new SQLiteConnection(_dbPath))
-            {
-                connection.CreateTable<Contact>();
-                contact = connection.Table<Contact>().FirstOrDefault(c => c.Id == id);
-            }
-
-            return contact;
         }
 
         public void Insert(Contact contact)

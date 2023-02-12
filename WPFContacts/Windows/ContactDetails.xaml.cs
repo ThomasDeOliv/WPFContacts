@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using WPFContacts.Datas.Models;
 
@@ -13,6 +12,8 @@ namespace WPFContacts.Windows
         public ContactDetails(Contact selectedContact)
         {
             InitializeComponent();
+            Owner = Application.Current.MainWindow;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             DataContext = selectedContact;
 
@@ -30,7 +31,7 @@ namespace WPFContacts.Windows
                 updatedContact.Name = updatedContact.Name.Trim().ToUpper();
                 updatedContact.FirstName = updatedContact.FirstName.Trim().ToUpper();
                 updatedContact.Phone = updatedContact.Phone.Trim();
-                updatedContact.Mail = updatedContact.Mail.Trim().ToLower();
+                updatedContact.Mail = updatedContact.Mail is not null? updatedContact.Mail.Trim().ToLower() : null;
 
                 App.dbBusiness.Update(updatedContact);
                 MessageBox.Show("Contact updated", "Updated", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -39,9 +40,6 @@ namespace WPFContacts.Windows
             {
                 MessageBox.Show(ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            // Update the current listview
-            App.mainWindow.RefreshListView(App.mainWindow.contactsListView, App.mainWindow.contacts);
 
             // Closing the window
             this.Close();
@@ -60,9 +58,6 @@ namespace WPFContacts.Windows
             {
                 MessageBox.Show(ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            // Update the current listview
-            App.mainWindow.RefreshListView(App.mainWindow.contactsListView, App.mainWindow.contacts);
 
             // Closing the window
             this.Close();

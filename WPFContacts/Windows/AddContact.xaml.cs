@@ -13,6 +13,10 @@ namespace WPFContacts.Windows
         public AddContact()
         {
             InitializeComponent();
+
+            Owner = Application.Current.MainWindow;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
             this.createContactButton.Click += _createContactAndCloseWindow;
         }
 
@@ -39,9 +43,6 @@ namespace WPFContacts.Windows
                 {
                     MessageBox.Show(ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
-                // Update the current listview
-                App.mainWindow.RefreshListView(App.mainWindow.contactsListView, App.mainWindow.contacts);
 
                 // Close the window
                 this.Close();

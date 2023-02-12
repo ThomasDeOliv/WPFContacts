@@ -4,11 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:model="clr-namespace:WPFContacts.Datas.Models;assembly=WPFContacts.Datas"
-        xmlns:local="clr-namespace:WPFContacts.Windows"
         mc:Ignorable="d"
         Title="ContactDetails" 
         Height="600" 
-        Width="450">
+        Width="450"
+        ResizeMode="NoResize">
     <Window.DataContext>
         <model:Contact/>
     </Window.DataContext>

@@ -12,11 +12,11 @@ namespace WPFContacts.Windows
     /// </summary>
     public partial class ContactsList : Window
     {
-        public List<Contact> contacts;
+        private readonly List<Contact> _contacts;
 
         public Action<ListView, List<Contact>> RefreshListView = (listView, contacts) =>
         {
-            contacts = new List<Contact>(App.dbBusiness.ReadAll());
+            contacts = App.dbBusiness.ReadAll();
 
             if (contacts is not null)
             {
@@ -26,24 +26,25 @@ namespace WPFContacts.Windows
 
         public ContactsList()
         {
+            _contacts = App.dbBusiness.ReadAll();
+
             InitializeComponent();
+
+            if (_contacts is not null)
+            {
+                this.contactsListView.ItemsSource = _contacts;
+            }
 
             this.searchContactTextBox.TextChanged += _filterContactsList;
             this.addContactButton.Click += _openAddContactWindow;
             this.contactsListView.SelectionChanged += _selectContact;
-
-            contacts = new List<Contact>(App.dbBusiness.ReadAll());
-
-            if (contacts is not null)
-            {
-                this.contactsListView.ItemsSource = contacts;
-            }
         }
 
         private void _openAddContactWindow(object sender, RoutedEventArgs e)
         {
             AddContact addContactWindow = new AddContact();
-            addContactWindow.ShowDialog();
+            addContactWindow.ShowDialog(); 
+            RefreshListView(contactsListView, _contacts);
         }
 
         private void _filterContactsList(object sender, TextChangedEventArgs e)
@@ -63,7 +64,7 @@ namespace WPFContacts.Windows
                 TextBox textBox = sender as TextBox;
                 string query = textBox.Text.Trim();
 
-                List<Contact> filtredContacts = contacts.Where(c => 
+                List<Contact> filtredContacts = _contacts.Where(c => 
                     (c.FirstName + " " + c.Name).Contains(query, StringComparison.OrdinalIgnoreCase)
                     || c.Phone.Contains(query, StringComparison.OrdinalIgnoreCase)
                     || _checkMailExistAndCorrespondingQuery(c.Mail, query)
@@ -74,7 +75,7 @@ namespace WPFContacts.Windows
             }
             else
             {
-                this.contactsListView.ItemsSource = contacts;
+                this.contactsListView.ItemsSource = _contacts;
             }
         }
 
@@ -87,6 +88,8 @@ namespace WPFContacts.Windows
                 ContactDetails contactDetails = new ContactDetails(selectedContact);
                 contactDetails.ShowDialog();
             }
+
+            RefreshListView(contactsListView, _contacts);
         }
     }
 }
