@@ -1,0 +1,36 @@
+﻿<Window x:Class="WPFContacts.Windows.ContactDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="clr-namespace:WPFContacts.Datas.Models;assembly=WPFContacts.Datas"
+        xmlns:local="clr-namespace:WPFContacts.Windows"
+        mc:Ignorable="d"
+        Title="ContactDetails" 
+        Height="600" 
+        Width="450">
+    <Window.DataContext>
+        <model:Contact/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel Margin="10">
+            <Label Content="Nom"/>
+            <TextBox Text="{Binding Name, Mode=TwoWay}"
+                     x:Name="nameField" />
+            <Label Content="Prénom"/>
+            <TextBox Text="{Binding FirstName, Mode=TwoWay}"
+                     x:Name="firstnameField" />
+            <Label Content="Numéro de téléphone"/>
+            <TextBox Text="{Binding Phone, Mode=TwoWay}"
+                     x:Name="phoneField" />
+            <Label Content="Adresse mail"/>
+            <TextBox Text="{Binding Mail, Mode=TwoWay}"
+                     x:Name="mailField" />
+            <Button Content="Modifier" 
+                    x:Name="updateContactButton"/>
+            <Button Content="Supprimer" 
+                    Background="red"
+                    x:Name="deleteContactButton"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -18,7 +18,8 @@
             <TextBox x:Name="phoneField" />
             <Label Content="Adresse mail"/>
             <TextBox x:Name="mailField" />
-            <Button Content="Ajouter" x:Name="createContactButton"/>
+            <Button Content="Ajouter" 
+                    x:Name="createContactButton"/>
         </StackPanel>
     </Grid>
 </Window>

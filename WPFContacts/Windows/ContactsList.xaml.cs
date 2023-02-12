@@ -28,8 +28,9 @@ namespace WPFContacts.Windows
         {
             InitializeComponent();
 
-            this.addContactButton.Click += _openAddContactWindow;
             this.searchContactTextBox.TextChanged += _filterContactsList;
+            this.addContactButton.Click += _openAddContactWindow;
+            this.contactsListView.SelectionChanged += _selectContact;
 
             contacts = new List<Contact>(App.dbBusiness.ReadAll());
 
@@ -74,6 +75,17 @@ namespace WPFContacts.Windows
             else
             {
                 this.contactsListView.ItemsSource = contacts;
+            }
+        }
+
+        private void _selectContact(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedContact = this.contactsListView.SelectedItem as Contact;
+
+            if(selectedContact is not null)
+            {
+                ContactDetails contactDetails = new ContactDetails(selectedContact);
+                contactDetails.ShowDialog();
             }
         }
     }
